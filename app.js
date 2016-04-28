@@ -21,8 +21,9 @@ app.use(session({secret: 'secret',
    saveUninitialized: true,
    resave: true}));
 
-app.get('*',function(req,res){
-    res.sendFile('one-page.html');
+app.use(express.static(__dirname + '/'));
+app.all('*', function(req, res, next) {
+  res.sendFile('one-page.html', { root: __dirname });
 });
 
 server.listen(port,function(err){
